@@ -1,0 +1,18 @@
+# VSCode and editor files
+.vscode/
+*.swp
+
+# speckit / specify generated outputs
+plan.md
+spec.md
+tasks.md
+research.md
+data-model.md
+quickstart.md
+
+# generated contracts/ folders created by speckit.plan (optional)
+#contracts/
+
+# Ignore specify runtime memory, but keep constitution
+.specify/memory/*
+!.specify/memory/constitution.md
