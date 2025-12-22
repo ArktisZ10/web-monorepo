@@ -2,17 +2,21 @@
 .vscode/
 *.swp
 
-# speckit / specify generated outputs
-plan.md
-spec.md
-tasks.md
-research.md
-data-model.md
-quickstart.md
+# Human-authored speckit/spec files — keep these in git
+# (Remove these from ignore to track the source-of-truth)
+# plan.md
+# spec.md
+# tasks.md
+# research.md
+# data-model.md
+# quickstart.md
 
-# generated contracts/ folders created by speckit.plan (optional)
-#contracts/
+# Generated speckit outputs / artifacts — ignore these
+# Put generated artifacts into a single folder (example: contracts/)
+contracts/
+.specify/output/
+.specify/cache/
 
-# Ignore specify runtime memory, but keep constitution
+# Ignore specify runtime memory, but keep constitution (source-of-truth)
 .specify/memory/*
 !.specify/memory/constitution.md
