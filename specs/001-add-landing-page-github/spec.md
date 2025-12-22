@@ -61,7 +61,7 @@ As a user with varying devices or assistive needs, I want the landing page and G
 ### Edge Cases
 
 - What happens if the external GitHub URL is unreachable? The page should surface a friendly message after the click or rely on the browser's normal failure state; this is documented in Assumptions.
-- What happens when JavaScript is disabled? The GitHub button should be a normal anchor (`<a>`) so navigation still works without client-side JS.
+- What happens when JavaScript is disabled (`no-JavaScript`)? The GitHub button should be a normal anchor (`<a>`) so navigation still works without client-side JS. See `apps/web/tests/no-javascript.md` for verification guidance.
 
 ## Requirements *(mandatory)*
 
@@ -88,6 +88,15 @@ As a user with varying devices or assistive needs, I want the landing page and G
 - **SC-002**: 95% of click tests (10 runs across browsers/devices) successfully navigate to `https://github.com/ArktisZ10`.
 - **SC-003**: The page must pass basic accessibility checks: keyboard focusable GitHub button and descriptive accessible name (manual verification).
 - **SC-004**: The page is usable on standard mobile viewports (manual verification across at least 3 viewport sizes).
+
+### Measurable Outcomes (revised)
+
+- **SC-001**: Automated acceptance – All automated E2E tests in the CI matrix (Playwright across Chromium, Firefox, WebKit) must pass on every CI run (100% pass) for the feature to be accepted.
+- **SC-002**: Click/navigation verification – All click/navigation tests executed in the CI matrix must successfully open `https://github.com/ArktisZ10` in a new tab with the required attributes (`target`, `rel`, and `aria-label`) in 100% of CI runs.
+- **SC-003**: Accessibility – The page must pass automated accessibility smoke checks (keyboard focusability and presence of accessible name for the GitHub link) and any manual accessibility verification issues must be documented and resolved prior to merge.
+- **SC-004**: Responsive checks – The page must render and display the GitHub button within the first viewport without scrolling for mobile (375×812) and tablet/desktop sizes (768×1024, 1024×768) in the CI visual/manual checks.
+
+Note: The CI matrix referenced above is defined in `plan.md` and `.github/workflows/web.yml` (Playwright across Chromium, Firefox, WebKit; Node LTS). Manual test counts cited earlier have been retired in favor of CI-driven automated criteria.
 
 ## Assumptions
 

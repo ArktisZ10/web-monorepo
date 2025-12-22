@@ -8,7 +8,7 @@ Phase 1: Foundational / Test harness
  - [ ] T006 [P] Add Playwright devDependency, set `test:e2e` npm script, and run `npx playwright install` (ensure Playwright is installed under Node LTS and supports ESM); update `apps/web/package.json` (depends-on: T001) (`apps/web/package.json`)
  - [ ] T007 [US1] Create failing E2E test `apps/web/tests/e2e/landing.spec.js` (ESM) that asserts the GitHub link exists and has correct attributes (depends-on: T001) (`apps/web/tests/e2e/landing.spec.js`)
  - [ ] T008 [P] Add CI job `.github/workflows/web.yml` to run Node LTS and Playwright across Chromium/Firefox/WebKit (headless) and document Node version in workflow (depends-on: T006) (`.github/workflows/web.yml`)
- - [ ] T019 [US1] Verify no-JavaScript behavior: confirm the GitHub anchor works when JS is disabled (manual or automated headless test) (maps-to: FR-005) (`apps/web/tests/nojs.md`)
+ - [ ] T019 [US1] Verify no-JavaScript behavior: confirm the GitHub anchor works when JavaScript is disabled (manual or automated headless test; automated test located at `apps/web/tests/e2e/no-javascript.spec.mjs`) (maps-to: FR-005) (`apps/web/tests/no-javascript.md`)
  - [ ] T009 Update agent context (copilot) with plan/tech notes by running `.specify/scripts/bash/update-agent-context.sh copilot` and commit the resulting file (`.github/agents/copilot-instructions.md`)
 - [ ] T003 [P] Create app wrapper `apps/web/pages/_app.jsx` that imports global styles (`apps/web/pages/_app.jsx`)
 - [ ] T004 [P] Create skeleton landing page `apps/web/pages/index.jsx` (initial placeholder content) (`apps/web/pages/index.jsx`)

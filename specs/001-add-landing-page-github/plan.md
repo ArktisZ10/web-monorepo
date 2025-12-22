@@ -25,12 +25,13 @@ Gate evaluation:
 - Gate: "Tests MUST be written before implementation" — We will create an automated E2E test file as the first implementation commit (test fails), then implement the page and make the test pass in a subsequent commit. This satisfies the constitution gate.
 
 Tooling & CI matrix (decision)
-- **E2E runner**: `Playwright` (headless by default). If CI constraints later require a different runner, update `plan.md` with a justification.
-- **Browsers (CI matrix)**: Chromium, Firefox, WebKit (run headless in CI); target Node.js `18` and `20` in runners where applicable.
-- **Test script**: add `test:e2e` npm script to `apps/web/package.json` that runs Playwright tests.
+ - **E2E runner**: `Playwright` (headless by default). If CI constraints later require a different runner, update `plan.md` with a justification.
+ - **Browsers (CI matrix)**: Chromium, Firefox, WebKit (run headless in CI); target Node.js `18` and `20` in runners where applicable.
+ - **Test script**: add `test:E2E`/`test:e2e` npm script to `apps/web/package.json` that runs Playwright tests.
 
  - **Node runtime**: Target the repository's latest Node LTS in CI and local development. Use the latest LTS in the CI matrix and document the specific version in the repo's `engines` field if desired.
  - **Modules**: Use ESM for app and tests; add `"type": "module"` to `apps/web/package.json` and author sources/tests with `import`/`export` syntax.
+ - **Terminology**: This plan uses the term `E2E` for end-to-end tests and `no-JavaScript` when referring to running pages with JavaScript disabled. Use these terms consistently in related artifacts (`spec.md`, `tasks.md`).
 
 Ordering note: The project scaffold (`apps/web/package.json`) must be created before installing E2E devDependencies or committing the failing test. Tasks that add test deps or create failing tests will explicitly depend on the scaffold task.
 
