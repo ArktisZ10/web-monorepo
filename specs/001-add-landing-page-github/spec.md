@@ -6,6 +6,12 @@
 **Status**: Draft  
 **Input**: User description: "Create an app with an initial single landing page that allows users to find my GitHub account @ArktisZ10."
 
+## Clarifications
+
+### Session 2025-12-22
+
+- Q: Should the GitHub link open in the same tab or a new tab? → A: Open in a new tab (target="_blank", `rel="noopener noreferrer"`).
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Find GitHub account (Priority: P1)
@@ -19,7 +25,7 @@ As a visitor, I want to find and navigate to the owner's GitHub account so I can
 **Acceptance Scenarios**:
 
 1. **Given** a user visits the site's root path, **When** the page loads, **Then** the landing page and the GitHub button are visible and labelled clearly.
-2. **Given** the GitHub button is visible, **When** the user clicks the button, **Then** the browser navigates to `https://github.com/ArktisZ10` (opens in the same tab or a new tab per UX preference) and the correct GitHub profile loads.
+2. **Given** the GitHub button is visible, **When** the user clicks the button, **Then** the browser opens `https://github.com/ArktisZ10` in a new tab (`target="_blank"` with `rel="noopener noreferrer"`) and the correct GitHub profile loads.
 
 ---
 
@@ -67,6 +73,8 @@ As a user with varying devices or assistive needs, I want the landing page and G
 - **FR-004**: The landing page MUST be responsive and usable on common mobile and desktop viewports.
 - **FR-005**: The GitHub button MUST function when JavaScript is disabled (i.e., be a native link).
 - **FR-006**: The landing page MUST have minimal, focused content (branding, short description, GitHub button) and no unrelated navigation.
+ - **FR-006**: The landing page MUST have minimal, focused content (branding, short description, GitHub button) and no unrelated navigation.
+ - **FR-007**: External navigation to the GitHub profile MUST open in a new browser tab (`target="_blank"`) and include `rel="noopener noreferrer"` for security.
 
 ### Key Entities *(include if feature involves data)*
 
