@@ -20,3 +20,10 @@ contracts/
 # Ignore specify runtime memory, but keep constitution (source-of-truth)
 .specify/memory/*
 !.specify/memory/constitution.md
+
+# Node.js dependencies
+node_modules/
+
+# Playwright test results
+playwright-report/
+test-results/
