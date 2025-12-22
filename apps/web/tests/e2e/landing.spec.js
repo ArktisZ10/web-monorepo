@@ -1,4 +1,4 @@
-const { test, expect } = require('@playwright/test');
+import { test, expect } from '@playwright/test';
 
 test('landing page contains GitHub link with correct attributes', async ({ page }) => {
   // Assumes local dev server at http://localhost:3000
