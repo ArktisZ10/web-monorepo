@@ -18,7 +18,7 @@ Reviewing `.specify/memory/constitution.md` for gating rules (Spec-Driven Work, 
 - Spec present: `/home/arktis/git/web-monorepo/specs/001-add-landing-page-github/spec.md` ✅
 - Plan being created (this document) ✅
 - Tests: The constitution requires tests before implementation. For this simple static landing page we will add a minimal end-to-end test (Playwright or simple Puppeteer) that fails before implementation and passes after. This plan includes a task to add a failing E2E test in `apps/web/tests` and then implement the landing page to make it pass.
- - Tests: The constitution requires tests before implementation. For this simple static landing page we will use Playwright as the E2E runner (recommended for consistent cross‑browser CI matrix). We will add a minimal end-to-end test that fails before implementation and passes after. This plan includes a task to add a failing E2E test in `apps/web/tests` and then implement the landing page to make it pass. Note: a minimal `apps/web/package.json` scaffold must be created first so test devDependencies and scripts can be installed and executed (see Tasks ordering / dependencies).
+ - Tests: The constitution requires tests before implementation. For this feature we will use Playwright as the E2E runner and target the repository's latest Node LTS runtime. Tests and tooling will use ESM modules (author test files as ESM and set `"type": "module"` in `apps/web/package.json`). We will add a minimal Playwright E2E test that fails before implementation and passes after. Note: a minimal `apps/web/package.json` scaffold must be created first so devDependencies and scripts can be installed and executed (see Tasks ordering / dependencies).
 - Dependencies: Any introduced npm deps must be approved and scanned per constitution. We'll add `next` and `preact` and keep them minimal.
 
 Gate evaluation:
@@ -28,6 +28,9 @@ Tooling & CI matrix (decision)
 - **E2E runner**: `Playwright` (headless by default). If CI constraints later require a different runner, update `plan.md` with a justification.
 - **Browsers (CI matrix)**: Chromium, Firefox, WebKit (run headless in CI); target Node.js `18` and `20` in runners where applicable.
 - **Test script**: add `test:e2e` npm script to `apps/web/package.json` that runs Playwright tests.
+
+ - **Node runtime**: Target the repository's latest Node LTS in CI and local development. Use the latest LTS in the CI matrix and document the specific version in the repo's `engines` field if desired.
+ - **Modules**: Use ESM for app and tests; add `"type": "module"` to `apps/web/package.json` and author sources/tests with `import`/`export` syntax.
 
 Ordering note: The project scaffold (`apps/web/package.json`) must be created before installing E2E devDependencies or committing the failing test. Tasks that add test deps or create failing tests will explicitly depend on the scaffold task.
 
