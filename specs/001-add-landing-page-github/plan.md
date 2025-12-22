@@ -18,10 +18,18 @@ Reviewing `.specify/memory/constitution.md` for gating rules (Spec-Driven Work, 
 - Spec present: `/home/arktis/git/web-monorepo/specs/001-add-landing-page-github/spec.md` ✅
 - Plan being created (this document) ✅
 - Tests: The constitution requires tests before implementation. For this simple static landing page we will add a minimal end-to-end test (Playwright or simple Puppeteer) that fails before implementation and passes after. This plan includes a task to add a failing E2E test in `apps/web/tests` and then implement the landing page to make it pass.
+ - Tests: The constitution requires tests before implementation. For this simple static landing page we will use Playwright as the E2E runner (recommended for consistent cross‑browser CI matrix). We will add a minimal end-to-end test that fails before implementation and passes after. This plan includes a task to add a failing E2E test in `apps/web/tests` and then implement the landing page to make it pass. Note: a minimal `apps/web/package.json` scaffold must be created first so test devDependencies and scripts can be installed and executed (see Tasks ordering / dependencies).
 - Dependencies: Any introduced npm deps must be approved and scanned per constitution. We'll add `next` and `preact` and keep them minimal.
 
 Gate evaluation:
 - Gate: "Tests MUST be written before implementation" — We will create an automated E2E test file as the first implementation commit (test fails), then implement the page and make the test pass in a subsequent commit. This satisfies the constitution gate.
+
+Tooling & CI matrix (decision)
+- **E2E runner**: `Playwright` (headless by default). If CI constraints later require a different runner, update `plan.md` with a justification.
+- **Browsers (CI matrix)**: Chromium, Firefox, WebKit (run headless in CI); target Node.js `18` and `20` in runners where applicable.
+- **Test script**: add `test:e2e` npm script to `apps/web/package.json` that runs Playwright tests.
+
+Ordering note: The project scaffold (`apps/web/package.json`) must be created before installing E2E devDependencies or committing the failing test. Tasks that add test deps or create failing tests will explicitly depend on the scaffold task.
 
 ## Phase 0 — Research & Clarifications
 

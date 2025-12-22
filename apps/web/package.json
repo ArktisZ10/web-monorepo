@@ -1,0 +1,14 @@
+{
+  "name": "apps-web",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3000",
+    "build": "next build",
+    "start": "next start",
+    "test:e2e": "npx playwright test apps/web/tests/e2e"
+  },
+  "devDependencies": {
+    "playwright": "^1.40.0"
+  }
+}

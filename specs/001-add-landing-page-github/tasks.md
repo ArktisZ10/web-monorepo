@@ -1,24 +1,23 @@
 # Tasks — 001 Add Landing Page (GitHub)
 
-Phase 1: Setup
+Phase 0: Initial project config
 
 - [ ] T001 Create `apps/web/package.json` with `dev`, `build`, and `start` scripts (`apps/web/package.json`)
-- [ ] T002 Create `apps/web/next.config.js` with webpack aliases for `preact/compat` (`apps/web/next.config.js`)
+
+Phase 1: Foundational / Test harness
+
+	(depends-on: T001)
+	(depends-on: T001)
+- [ ] T019 [US1] Verify no-JavaScript behavior: confirm the GitHub anchor works when JS is disabled (manual or automated headless test) (maps-to: FR-005) (`apps/web/tests/nojs.md`)
+- [ ] T009 Update agent context (copilot) with plan/tech notes by running `.specify/scripts/bash/update-agent-context.sh copilot` and commit the resulting file (`.github/agents/copilot-instructions.md`)
 - [ ] T003 [P] Create app wrapper `apps/web/pages/_app.jsx` that imports global styles (`apps/web/pages/_app.jsx`)
 - [ ] T004 [P] Create skeleton landing page `apps/web/pages/index.jsx` (initial placeholder content) (`apps/web/pages/index.jsx`)
 - [ ] T005 [P] Create global stylesheet `apps/web/styles/global.css` (`apps/web/styles/global.css`)
 
-Phase 2: Foundational / Test harness
-
-- [ ] T006 Add Playwright (or chosen E2E runner) devDependency and `test:e2e` script to `apps/web/package.json` (`apps/web/package.json`)
-- [ ] T007 Create failing E2E test `apps/web/tests/e2e/landing.spec.js` that asserts the GitHub link exists and has correct attributes (`apps/web/tests/e2e/landing.spec.js`)
-- [ ] T008 [P] Add CI job to run `apps/web` build and E2E tests (if repo CI is used): `.github/workflows/web.yml` (`.github/workflows/web.yml`)
-- [ ] T009 Update agent context (copilot) with plan/tech notes by running `.specify/scripts/bash/update-agent-context.sh copilot` and commit the resulting file (`.github/agents/copilot-instructions.md`)
-
 Phase 3: User Story 1 — Find GitHub account (Priority: P1)
 
-- [ ] T010 [US1] Implement landing page content in `apps/web/pages/index.jsx` including a prominent GitHub button linking to `https://github.com/ArktisZ10` (`apps/web/pages/index.jsx`)
-- [ ] T011 [US1] Ensure the GitHub anchor uses `target="_blank"` and `rel="noopener noreferrer"`, and includes `aria-label="Open GitHub profile for ArktisZ10"` (`apps/web/pages/index.jsx`)
+- [ ] T010 [US1] Implement landing page content in `apps/web/pages/index.jsx` including a prominent GitHub button linking to `https://github.com/ArktisZ10` (`apps/web/pages/index.jsx`) (maps-to: FR-001, FR-002, FR-006)
+- [ ] T011 [US1] Ensure the GitHub anchor uses `target="_blank"` and `rel="noopener noreferrer"`, and includes `aria-label="Open GitHub profile for ArktisZ10"` (`apps/web/pages/index.jsx`) (maps-to: FR-002, FR-003, FR-007)
 - [ ] T012 [US1] Run E2E tests and update code until `apps/web/tests/e2e/landing.spec.js` passes (commands: `cd apps/web && npm run test:e2e`) (no file path)
 
 Phase 4: User Story 2 — Simple shareable page (Priority: P2)

@@ -20,7 +20,7 @@ As a visitor, I want to find and navigate to the owner's GitHub account so I can
 
 **Why this priority**: This is the primary user value: discovery of the owner's GitHub profile.
 
-**Independent Test**: Open the landing page in a browser, locate the GitHub button, click it, and verify the browser opens the GitHub profile `https://github.com/ArktisZ10` in the same tab or a new tab (behavior documented in acceptance scenarios).
+**Independent Test**: Open the landing page in a browser, locate the GitHub button, click it, and verify the browser opens the GitHub profile `https://github.com/ArktisZ10` in a new tab (behavior documented in acceptance scenarios).
 
 **Acceptance Scenarios**:
 
@@ -73,8 +73,7 @@ As a user with varying devices or assistive needs, I want the landing page and G
 - **FR-004**: The landing page MUST be responsive and usable on common mobile and desktop viewports.
 - **FR-005**: The GitHub button MUST function when JavaScript is disabled (i.e., be a native link).
 - **FR-006**: The landing page MUST have minimal, focused content (branding, short description, GitHub button) and no unrelated navigation.
- - **FR-006**: The landing page MUST have minimal, focused content (branding, short description, GitHub button) and no unrelated navigation.
- - **FR-007**: External navigation to the GitHub profile MUST open in a new browser tab (`target="_blank"`) and include `rel="noopener noreferrer"` for security.
+- **FR-007**: External navigation to the GitHub profile MUST open in a new browser tab (`target="_blank"`) and include `rel="noopener noreferrer"` for security.
 
 ### Key Entities *(include if feature involves data)*
 
