@@ -31,7 +31,21 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+The following constitutional gates MUST be satisfied and explicitly documented in `plan.md` before plan
+approval:
+
+- **Spec presence**: `spec.md` exists and contains prioritized, independently-testable user stories with
+  measurable acceptance criteria (Spec-Driven Work).
+- **Fail-first tests**: For P1 user stories at least one automated test is authored and demonstrates failure
+  prior to implementation (Test-First Development).
+- **Contract/Integration requirement**: If the feature touches public APIs or shared contracts, include
+  contract tests and a migration plan (Integration & Release Discipline).
+- **CI & checks**: Identify CI checks required for the feature (unit, integration, contract tests, linting,
+  security scans) and ensure they will run in the project's CI pipeline.
+- **Ownership & dependencies**: Declare owners for new libraries/packages and any third-party dependencies that
+  require security review (Library Ownership & Reuse).
+
+Document how each gate is satisfied inside `plan.md` under a dedicated "Constitution Check" section.
 
 ## Project Structure
 
