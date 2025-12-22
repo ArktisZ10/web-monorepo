@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "dev": "next dev -p 3000",
     "build": "next build",
@@ -10,6 +13,6 @@
     "test:e2e": "npx playwright test apps/web/tests/e2e"
   },
   "devDependencies": {
-    "playwright": "^1.40.0"
+    "playwright": "1.40.0"
   }
 }
