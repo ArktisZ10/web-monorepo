@@ -13,6 +13,6 @@
     "test:e2e": "npx playwright test apps/web/tests/e2e"
   },
   "devDependencies": {
-    "playwright": "1.40.0"
+    "playwright": "^1.57.0"
   }
 }
