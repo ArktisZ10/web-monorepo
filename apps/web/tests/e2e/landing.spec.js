@@ -1,8 +1,9 @@
 import { test, expect } from '@playwright/test';
 
 test('landing page contains GitHub link with correct attributes', async ({ page }) => {
-  // Assumes local dev server at http://localhost:3000
-  await page.goto('http://localhost:3000/');
+  // Use BASE_URL if provided (e.g., preview deployments); fallback to localhost
+  const base = process.env.BASE_URL || 'http://localhost:3000';
+  await page.goto(`${base}/`);
 
   const link = page.locator('a[href="https://github.com/ArktisZ10"]');
 
