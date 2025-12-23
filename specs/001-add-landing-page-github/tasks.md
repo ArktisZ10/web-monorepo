@@ -14,6 +14,11 @@ Phase 1: Foundational / Test harness
 - [ ] T004 [P] Create skeleton landing page `apps/web/pages/index.jsx` (initial placeholder content) (`apps/web/pages/index.jsx`)
 - [ ] T005 [P] Create global stylesheet `apps/web/styles/global.css` (`apps/web/styles/global.css`)
 
+Phase 2: Deployment & Preview
+
+ - [ ] T020 [P] Configure Vercel hosting: connect repository to Vercel, enable Preview Deployments for PRs, and add any required project settings (`vercel` dashboard) (depends-on: T010)
+ - [ ] T021 [P] Update CI to run E2E against Vercel preview URLs for PRs (or build+serve in CI). Add workflow or job to deploy preview and run Playwright with `BASE_URL` set to the preview URL (depends-on: T020) (`.github/workflows/preview-e2e.yml`)
+
 Phase 3: User Story 1 — Find GitHub account (Priority: P1)
 
 - [ ] T010 [US1] Implement landing page content in `apps/web/pages/index.jsx` including a prominent GitHub button linking to `https://github.com/ArktisZ10` (`apps/web/pages/index.jsx`) (maps-to: FR-001, FR-002, FR-006)
