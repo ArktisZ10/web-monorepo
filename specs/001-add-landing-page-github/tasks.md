@@ -1,64 +1,78 @@
 # Tasks — 001 Add Landing Page (GitHub)
 
-Phase 0: Initial project config
+Feature: Add a single landing page at `/` linking to `https://github.com/ArktisZ10`.
+Feature directory: `/home/arktis/git/web-monorepo/specs/001-add-landing-page-github`
 
- - [ ] T001 Create `apps/web/package.json` with `dev`, `build`, and `start` scripts; set `"type": "module"` for ESM and record Node engines to target latest LTS (e.g. `"engines": { "node": ">=18" }`) (`apps/web/package.json`)
+Phase 1: Setup (project initialization)
 
-Phase 1: Foundational / Test harness
- - [ ] T006 [P] Add Playwright devDependency, set `test:e2e` npm script, and run `npx playwright install` (ensure Playwright is installed under Node LTS and supports ESM); update `apps/web/package.json` (depends-on: T001) (`apps/web/package.json`)
- - [ ] T007 [US1] Create failing E2E test `apps/web/tests/e2e/landing.spec.js` (ESM) that asserts the GitHub link exists and has correct attributes (depends-on: T001) (`apps/web/tests/e2e/landing.spec.js`)
- - [ ] T008 [P] Add CI job `.github/workflows/web.yml` to run Node LTS and Playwright across Chromium/Firefox/WebKit (headless) and document Node version in workflow (depends-on: T006) (`.github/workflows/web.yml`)
- - [ ] T019 [US1] Verify no-JavaScript behavior: confirm the GitHub anchor works when JavaScript is disabled (manual or automated headless test; automated test located at `apps/web/tests/e2e/no-javascript.spec.mjs`) (maps-to: FR-005) (`apps/web/tests/no-javascript.md`)
- - [ ] T009 Update agent context (copilot) with plan/tech notes by running `.specify/scripts/bash/update-agent-context.sh copilot` and commit the resulting file (`.github/agents/copilot-instructions.md`)
-- [ ] T003 [P] Create app wrapper `apps/web/pages/_app.jsx` that imports global styles (`apps/web/pages/_app.jsx`)
-- [ ] T004 [P] Create skeleton landing page `apps/web/pages/index.jsx` (initial placeholder content) (`apps/web/pages/index.jsx`)
-- [ ] T005 [P] Create global stylesheet `apps/web/styles/global.css` (`apps/web/styles/global.css`)
+- [ ] T001 Create `apps/web/package.json` with `dev`, `build`, and `start` scripts; set `"type": "module"` for ESM and record Node engines to target latest LTS (e.g. `"engines": { "node": ">=18" }`) (`apps/web/package.json`)
+- [ ] T002 Create `apps/web/next.config.js` with Preact/compat webpack aliases (`apps/web/next.config.js`)
+- [ ] T003 Create app wrapper `apps/web/pages/_app.jsx` that imports global styles (`apps/web/pages/_app.jsx`)
+- [ ] T004 Create skeleton landing page placeholder `apps/web/pages/index.jsx` (minimal placeholder content) (`apps/web/pages/index.jsx`)
+- [ ] T005 Create global stylesheet `apps/web/styles/global.css` (`apps/web/styles/global.css`)
 
-Phase 2: Deployment & Preview
+Phase 2: Foundational (blocking prerequisites)
 
- - [ ] T020 [P] Configure Vercel hosting: connect repository to Vercel, enable Preview Deployments for PRs, and add any required project settings (`vercel` dashboard) (depends-on: T010)
- - [ ] T021 [P] Update CI to run E2E against Vercel preview URLs for PRs (or build+serve in CI). Add workflow or job to deploy preview and run Playwright with `BASE_URL` set to the preview URL (depends-on: T020) (`.github/workflows/preview-e2e.yml`)
+- [ ] T006 [P] Add Playwright devDependency, set `test:e2e` npm script in `apps/web/package.json`, and run `npx playwright install` to install browsers (depends-on: T001) (`apps/web/package.json`)
+- [ ] T007 [P] Add CI workflow to build and serve the site, install Playwright browsers, and run Playwright against `BASE_URL` across Chromium/Firefox/WebKit (headless) (suggested path: `.github/workflows/web.yml`) (depends-on: T006) (`.github/workflows/web.yml`)
+- [ ] T008 [P] Add agent-context update step: run `.specify/scripts/bash/update-agent-context.sh copilot` and commit generated agent instructions to `.github/agents/copilot-instructions.md` (depends-on: T001) (`.github/agents/copilot-instructions.md`)
 
 Phase 3: User Story 1 — Find GitHub account (Priority: P1)
 
-- [ ] T010 [US1] Implement landing page content in `apps/web/pages/index.jsx` including a prominent GitHub button linking to `https://github.com/ArktisZ10` (`apps/web/pages/index.jsx`) (maps-to: FR-001, FR-002, FR-006)
-- [ ] T011 [US1] Ensure the GitHub anchor uses `target="_blank"` and `rel="noopener noreferrer"`, and includes `aria-label="Open GitHub profile for ArktisZ10"` (`apps/web/pages/index.jsx`) (maps-to: FR-002, FR-003, FR-007)
-- [ ] T012 [US1] Run E2E tests and update code until `apps/web/tests/e2e/landing.spec.js` passes (commands: `cd apps/web && npm run test:e2e`) (no file path)
+- [ ] T009 [US1] Create failing E2E test `apps/web/tests/e2e/landing.spec.js` (ESM) that asserts the GitHub link exists and has correct attributes (`href`, `target`, `rel`, `aria-label`) (depends-on: T006) (`apps/web/tests/e2e/landing.spec.js`)
+- [ ] T010 [US1] Implement landing page content in `apps/web/pages/index.jsx`, add a prominent GitHub button linking to `https://github.com/ArktisZ10` (maps-to: FR-001, FR-002, FR-006) (depends-on: T009) (`apps/web/pages/index.jsx`)
+- [ ] T011 [US1] Ensure the GitHub anchor uses `target="_blank"` and `rel="noopener noreferrer"`, and includes `aria-label="Open GitHub profile for ArktisZ10"` (verify and update `apps/web/pages/index.jsx`) (depends-on: T010) (`apps/web/pages/index.jsx`)
+- [ ] T012 [US1] Run E2E tests and update code until `apps/web/tests/e2e/landing.spec.js` passes (commands: `cd apps/web && npm run test:e2e`) (depends-on: T009,T010) (no file path)
+- [ ] T013 [US1] Add automated no-JavaScript verification `apps/web/tests/e2e/no-javascript.spec.mjs` that loads the page with JavaScript disabled and verifies the anchor works (depends-on: T009) (`apps/web/tests/e2e/no-javascript.spec.mjs`)
 
 Phase 4: User Story 2 — Simple shareable page (Priority: P2)
 
-- [ ] T013 [US2] Add shareable metadata (title, description, canonical, Open Graph) to the landing page `apps/web/pages/index.jsx` (`apps/web/pages/index.jsx`)
-- [ ] T014 [US2] Verify the page URL is copyable and loads on another device (manual test; document results in `specs/001-add-landing-page-github/quickstart.md`)
+- [ ] T014 [US2] Add shareable metadata (title, description, canonical, Open Graph) to the landing page `apps/web/pages/index.jsx` (depends-on: T010) (`apps/web/pages/index.jsx`)
+- [ ] T015 [US2] Verify the page URL is copyable and loads on another device (manual test; document results in `specs/001-add-landing-page-github/quickstart.md`) (`specs/001-add-landing-page-github/quickstart.md`)
 
 Phase 5: User Story 3 — Accessibility & Mobile (Priority: P3)
 
-- [ ] T015 [US3] Ensure responsive styling and mobile layout in `apps/web/styles/global.css` (`apps/web/styles/global.css`)
-- [ ] T016 [US3] Run accessibility checks (keyboard navigation, screen reader) and document any fixes in `specs/001-add-landing-page-github/accessibility-audit.md` (`specs/001-add-landing-page-github/accessibility-audit.md`)
+- [ ] T016 [US3] Ensure responsive styling and mobile layout in `apps/web/styles/global.css` (depends-on: T005) (`apps/web/styles/global.css`)
+- [ ] T017 [US3] Run accessibility checks (keyboard navigation, screen reader) and document any fixes in `specs/001-add-landing-page-github/accessibility-audit.md` (depends-on: T010,T011) (`specs/001-add-landing-page-github/accessibility-audit.md`)
 
-Final Phase: Polish & Cross-cutting
+Final Phase: Polish & Cross-cutting Concerns
 
-- [ ] T017 [P] Add `apps/web/README.md` with quickstart and link to feature spec (`apps/web/README.md`)
-- [ ] T018 Commit all changes on branch `001-add-landing-page-github` and open a Pull Request to `main` (`git push` + GitHub PR) (no file path)
+- [ ] T018 [P] Add `apps/web/README.md` with quickstart (how to run, test:e2e) and link to `spec.md` (`apps/web/README.md`)
+- [ ] T019 [P][INFRA] Add dependency/security scan step to CI (e.g., `npm audit` or `npm ci && npm audit --audit-level=moderate`) and document in `.github/workflows/web.yml` (depends-on: T007) (`.github/workflows/web.yml`)
+- [ ] T020 [INFRA] Commit all changes on branch `001-add-landing-page-github` and open a Pull Request to `main` (process task — `git push` + GitHub PR) (no file path)
+- [ ] T021 [P] (Optional) Configure Vercel hosting: connect repository, enable Preview Deployments for PRs, and add required project settings (`vercel` dashboard) (optional, depends-on: T010) (no file path)
 
-Dependencies
 
-- US1 depends on Phase 2 (E2E test harness) to satisfy the repository constitution (test-first requirement).  
-- US2/US3 are independent and can proceed in parallel after the scaffolding tasks (T003–T005) are complete.
+Dependencies (story completion order)
+
+- T001 -> T006 -> T009 -> T010 -> T011 -> T012
+- T001 -> T008 (agent-context can run after scaffold)
+- T006 -> T007 -> T019
+- Optional preview/deploy: T010 -> T021
 
 Parallel execution examples
 
-- While `T006` (installing E2E deps) and `T007` (creating failing test) should be sequential (test-first), the following can run in parallel: `T003`, `T004`, `T005` (file creation); `T013` and `T015` (meta + styles) can be done by separate engineers concurrently.
+- While `T006` (installing E2E deps) and `T009` (creating failing test) must be sequentially ordered (T006 before T009), the following tasks are parallelizable: `T002`, `T003`, `T004`, `T005` (file creation) — these modify different files and can be done concurrently. `T014` (metadata) and `T016` (styles) can be done by different engineers in parallel after `T010`.
 
 Independent test criteria (per user story)
 
-- US1: Automated E2E test `apps/web/tests/e2e/landing.spec.js` passes, asserting link presence, `href`, `target`, `rel`, and `aria-label`.  
-- US2: Manual verification that opening the page URL on another device results in the same landing page and functioning GitHub link; document in `quickstart.md`.  
-- US3: Keyboard-only navigation reaches the GitHub button (Enter/Space activates it) and screen reader announces the accessible name; record checks in `accessibility-audit.md`.
+- **US1**: Automated E2E test `apps/web/tests/e2e/landing.spec.js` (T009) must fail before implementation; after T010/T011 the test must pass in the CI matrix (Playwright across Chromium/Firefox/WebKit). No-JS verification `apps/web/tests/e2e/no-javascript.spec.mjs` (T013) must also pass.
+- **US2**: Manual verification documented in `specs/.../quickstart.md` (T015) showing the URL loads on another device.
+- **US3**: Accessibility audit `specs/.../accessibility-audit.md` (T017) shows keyboard focusability and accessible name for the GitHub link.
+
+Success Criteria → Task mapping
+
+- SC-001 (Automated E2E pass across browsers) → T009, T012, T007
+- SC-002 (Click/navigation verification) → T009, T012
+- SC-003 (Accessibility) → T011, T017
+- SC-004 (Responsive checks) → T016, T015
 
 Implementation strategy
 
-- MVP-first: deliver US1 first (single page with working GitHub button), then add share/meta (US2), then accessibility polish (US3).  
-- Test-first for US1: commit failing E2E test, then implement page to pass tests (satisfies constitution).  
-- Keep the scaffold minimal and avoid adding extraneous dependencies.
+- MVP-first: deliver US1 first (T009–T012). Commit failing tests (T009) before implementation (T010) to meet the constitution. Keep changes minimal and iterate.
+- CI-first: ensure `.github/workflows/web.yml` (T007) builds and serves a production build before running Playwright; include a dependency scan (T019).
 
-Files referenced above are exact paths relative to repository root. If you'd like, I can now scaffold any missing files, or revert the previously scaffolded `apps/web` files. Which should I do next?
+Format validation
+
+- All tasks use the required checklist format: `- [ ] T### [P?] [US?] Description (file path)`.
+- Setup/foundational/final tasks have NO `[US]` story labels; user-story phases include `[US#]` labels.

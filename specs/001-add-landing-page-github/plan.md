@@ -9,7 +9,7 @@ Generated: 2025-12-22
 - Repository root: `/home/arktis/git/web-monorepo`
 - Feature directory: `/home/arktis/git/web-monorepo/specs/001-add-landing-page-github`
 - Implementation target: monorepo `apps/web` Next.js app using Preact (`preact/compat`).
-- No backend, no persistent data required. Static landing page at `/` linking to `https://github.com/ArktisZ10`.
+- No backend, no persistent data required. Landing page at `/` implemented as a standard Next.js page linking to `https://github.com/ArktisZ10`.
 
 ## Constitution Check
 
@@ -46,6 +46,7 @@ Ordering note: The project scaffold (`apps/web/package.json`) must be created be
 
 Artifacts:
 - `/home/arktis/git/web-monorepo/specs/001-add-landing-page-github/research.md` — Decision record: Next.js + Preact, static landing page. ✅
+ - `/home/arktis/git/web-monorepo/specs/001-add-landing-page-github/research.md` — Decision record: Next.js + Preact, landing page. ✅
 
 Open clarifications resolved in research.md:
 - External link behavior: open in new tab with `rel="noopener noreferrer"` ✅
@@ -55,15 +56,11 @@ Phase 0 complete.
 ## Phase 1 — Design & Contracts
 
 Artifacts already generated (this feature is small):
-- `/home/arktis/git/web-monorepo/specs/001-add-landing-page-github/data-model.md` — No data model required. ✅
-- `/home/arktis/git/web-monorepo/specs/001-add-landing-page-github/contracts/` — no API contracts required (folder present). ✅
-- `/home/arktis/git/web-monorepo/specs/001-add-landing-page-github/quickstart.md` — Quickstart instructions. ✅
 
 API / Contracts: none required for v1 (static page). If a contact form or repo-list is later requested, create OpenAPI under `contracts/`.
-
+API / Contracts: none required for v1 (landing page). If a contact form or repo-list is later requested, create OpenAPI under `contracts/`.
 Agent context update:
 - Run `/home/arktis/git/web-monorepo/.specify/scripts/bash/update-agent-context.sh copilot` to add Next.js + Preact notes to agent context. Task included below.
-
 ## Implementation Tasks (Phase 1 -> Phase 2)
 
 Top-level plan: implement minimal Next.js app in `apps/web` with Preact aliases, add a failing E2E test, implement landing page to satisfy the test, commit, and provide quickstart.
