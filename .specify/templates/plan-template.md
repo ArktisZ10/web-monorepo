@@ -41,7 +41,10 @@ approval:
 - **Contract/Integration requirement**: If the feature touches public APIs or shared contracts, include
   contract tests and a migration plan (Integration & Release Discipline).
 - **CI & checks**: Identify CI checks required for the feature (unit, integration, contract tests, linting,
-  security scans) and ensure they will run in the project's CI pipeline.
+ - **CI & checks**: Identify CI checks required for the feature (unit, integration, contract tests, linting,
+  security scans) and ensure they will run in the project's CI pipeline. Explicitly document how any newly
+  introduced dependencies will be scanned and the plan to prevent High/Critical vulnerabilities from being
+  introduced during scaffolding or implementation (see repository constitution for gating rules).
 - **Ownership & dependencies**: Declare owners for new libraries/packages and any third-party dependencies that
   require security review (Library Ownership & Reuse).
 

@@ -113,3 +113,10 @@
 - **SC-002**: [Measurable metric, e.g., "System handles 1000 concurrent users without degradation"]
 - **SC-003**: [User satisfaction metric, e.g., "90% of users successfully complete primary task on first attempt"]
 - **SC-004**: [Business metric, e.g., "Reduce support tickets related to [X] by 50%"]
+
+## Security Requirements (if applicable)
+
+- Document any security-specific requirements for this feature, including dependency constraints,
+  acceptable vulnerability severity thresholds, and any required scans or linters. If the feature introduces
+  third-party dependencies, record the scanning strategy, the expected CI gating behavior (e.g., block on
+  High/Critical findings), and the owner responsible for approvals.

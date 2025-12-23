@@ -68,6 +68,10 @@ Examples of foundational tasks (adjust based on your project):
 - [ ] T007 Create base models/entities that all stories depend on
 - [ ] T008 Configure error handling and logging infrastructure
 - [ ] T009 Setup environment configuration management
+ - [ ] T009a [INFRA] Run dependency manifest validation and security scan (e.g., `npm audit`, `cargo audit`) and
+   ensure no newly-introduced High or Critical vulnerabilities are present. If such vulnerabilities are found,
+   block the change until they are remediated or an approved exception is recorded. (Repository policy: Secure
+   Dependencies & Vulnerability Management)
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 

@@ -1,23 +1,24 @@
 <!--
 Sync Impact Report
-Version change: TEMPLATE -> 0.1.0
+Version change: 0.1.0 -> 0.2.0
 Modified principles:
-- [PRINCIPLE_1_NAME] -> Spec-Driven Work
-- [PRINCIPLE_2_NAME] -> Test-First Development
-- [PRINCIPLE_3_NAME] -> Library Ownership & Reuse
-- [PRINCIPLE_4_NAME] -> Integration & Release Discipline
-- [PRINCIPLE_5_NAME] -> Observability & Simplicity
+- Spec-Driven Work (clarified)
+- Test-First Development (unchanged semantics)
+- Library Ownership & Reuse (clarified review requirement)
+- Integration & Release Discipline (unchanged)
+- Observability & Simplicity (unchanged)
+- Secure Dependencies & Vulnerability Management (NEW)
 Added sections:
-- Development Workflow (detailed)
+- Secure Dependencies & Vulnerability Management (details and gating rules)
 Removed sections:
 - none
-Templates requiring updates:
-- .specify/templates/plan-template.md ✅ updated
-- .specify/templates/spec-template.md ✅ aligned
-- .specify/templates/tasks-template.md ✅ aligned
+Templates requiring updates (status):
+- .specify/templates/plan-template.md ✅ updated (Constitution Check: explicit vulnerability gating)
+- .specify/templates/spec-template.md ✅ updated (Security requirements section)
+- .specify/templates/tasks-template.md ✅ updated (Foundational phase: security checks)
 Follow-up TODOs:
 - RATIFICATION_DATE: TODO(RATIFICATION_DATE): determine original ratification date
--->
+--> 
 
 # Web Monorepo Constitution
 
@@ -60,9 +61,31 @@ Design decisions SHOULD favor simplicity and explicitness (YAGNI).
 
 Rationale: Easier debugging and long-term maintainability.
 
+### Secure Dependencies & Vulnerability Management (NON-NEGOTIABLE)
+All code changes, including scaffolding and initial implementation commits, MUST NOT introduce external
+dependencies that are known to contain High or Critical vulnerabilities (as defined by CVSS v3 or the
+repository's vulnerability policy). Specifically:
+
+- All proposed dependency additions MUST be scanned by the repository's approved vulnerability scanner
+	(e.g., `npm audit`, `cargo audit`, OSS-Fuzz integrations, or an approved third-party scanner) before being
+	merged into any long-lived branch.
+- CI pipelines MUST block merges when any newly-introduced dependency has High or Critical findings.
+- If a High or Critical vulnerability is discovered and cannot be immediately remediated, the change MUST
+	include a documented exception that explains the risk, a mitigation plan (e.g., pinning to a patched
+	version, adding compensating controls), and explicit approval from the designated security owner listed in
+	`CODEOWNERS` for the affected area.
+- Scaffolding commits that create `package.json`, `requirements.txt`, or similar dependency manifests are
+	subject to the same policy: do not commit manifests that contain High/Critical vulnerable versions.
+
+Rationale: Prevent introducing known severe vulnerabilities during early-stage development and scaffolding;
+ensure observable, auditable decisions when exceptions are necessary.
+
 ## Additional Constraints
 - CI: Every PR MUST pass the project's CI checks: linting, unit tests, contract tests (when applicable), and
-	dependency security scans.
+
+- CI: Every PR MUST pass the project's CI checks: linting, unit tests, contract tests (when applicable), and
+	dependency security scans. CI MUST be configured to fail the build for any newly introduced High or
+	Critical vulnerabilities unless an approved exception exists.
 - Code Review: All changes MUST be code-reviewed by one or more approvers; P1 changes require at least two
 	approvers.
 - Dependencies: External dependencies MUST be reviewed for security and licensing before introduction.
@@ -93,4 +116,4 @@ Versioning policy:
 - MINOR: New principle or material expansion of guidance.
 - PATCH: Clarifications, wording fixes, or non-semantic refinements.
 
-**Version**: 0.1.0 | **Ratified**: TODO(RATIFICATION_DATE): determine original ratification date | **Last Amended**: 2025-12-22
+**Version**: 0.2.0 | **Ratified**: TODO(RATIFICATION_DATE): determine original ratification date | **Last Amended**: 2025-12-24
