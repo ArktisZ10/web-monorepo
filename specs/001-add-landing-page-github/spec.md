@@ -84,18 +84,20 @@ As a user with varying devices or assistive needs, I want the landing page and G
 
 ### Measurable Outcomes
 
-- **SC-001**: 100% of manual acceptance tests (10 test runs across browsers/devices) successfully load the landing page and display the GitHub button.
-- **SC-002**: 95% of click tests (10 runs across browsers/devices) successfully navigate to `https://github.com/ArktisZ10`.
-- **SC-003**: The page must pass basic accessibility checks: keyboard focusable GitHub button and descriptive accessible name (manual verification).
-- **SC-004**: The page is usable on standard mobile viewports (manual verification across at least 3 viewport sizes).
 
 ### Measurable Outcomes (revised)
 
-- **SC-001**: Automated acceptance – All automated E2E tests in the CI matrix (Playwright across Chromium, Firefox, WebKit) must pass on every CI run (100% pass) for the feature to be accepted.
-- **SC-002**: Click/navigation verification – All click/navigation tests executed in the CI matrix must successfully open `https://github.com/ArktisZ10` in a new tab with the required attributes (`target`, `rel`, and `aria-label`) in 100% of CI runs.
-- **SC-003**: Accessibility – The page must pass automated accessibility smoke checks (keyboard focusability and presence of accessible name for the GitHub link) and any manual accessibility verification issues must be documented and resolved prior to merge.
-- **SC-004**: Responsive checks – The page must render and display the GitHub button within the first viewport without scrolling for mobile (375×812) and tablet/desktop sizes (768×1024, 1024×768) in the CI visual/manual checks.
 
+## Measurable Outcomes *(mandatory)*
+
+The following measurable outcomes define acceptance and include guidance about stability and automation.
+
+- **SC-001 (Automated integration tests)**: The integration test suite (Playwright across Chromium, Firefox, WebKit) must pass in CI for the feature to be accepted. To account for transient flakiness, require either: (a) a single CI run with 0 failing tests for the PR, or (b) two consecutive successful runs if flaky failures were observed and documented. Document any flaky tests and open a follow-up task to stabilize them.
+- **SC-002 (Click/navigation verification)**: Integration tests must verify that clicking the GitHub button opens `https://github.com/ArktisZ10` in a new tab with the required attributes (`target="_blank"`, `rel="noopener noreferrer"`, and a descriptive `aria-label`) in CI runs.
+- **SC-003 (Accessibility)**: The page must pass automated accessibility smoke checks (keyboard focusability and presence of an accessible name for the GitHub link). Any remaining manual accessibility issues must be documented and resolved before merge.
+- **SC-004 (Responsive checks)**: The page must render and display the GitHub button within the first viewport without scrolling for mobile (375×812) and tablet/desktop sizes (768×1024, 1024×768) in the CI visual/manual checks.
+
+Note: The CI matrix referenced above is defined in `plan.md` and `.github/workflows/web.yml` (Playwright across Chromium, Firefox, WebKit; Node LTS). The term "integration tests" is used in this spec to refer to the previously-used "E2E" tests to avoid terminology drift.
 Note: The CI matrix referenced above is defined in `plan.md` and `.github/workflows/web.yml` (Playwright across Chromium, Firefox, WebKit; Node LTS). Manual test counts cited earlier have been retired in favor of CI-driven automated criteria.
 
 ## Assumptions

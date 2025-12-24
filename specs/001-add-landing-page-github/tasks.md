@@ -5,7 +5,8 @@ Feature directory: `/home/arktis/git/web-monorepo/specs/001-add-landing-page-git
 
 Phase 1: Setup (project initialization)
 
-- [ ] T001 Create `apps/web/package.json` with `dev`, `build`, and `start` scripts; set `"type": "module"` for ESM and record Node engines to target latest LTS (e.g. `"engines": { "node": ">=18" }`) (`apps/web/package.json`)
+- [ ] T001 Verify and update `apps/web/package.json` with `dev`, `build`, and `start` scripts; ensure `"type": "module"` for ESM and engines target latest LTS (e.g. `"engines": { "node": ">=18" }`). Do NOT commit new dependency versions before running a vulnerability scan. (`apps/web/package.json`)
+ - [ ] T001a Run dependency vulnerability scan for proposed package manifests (e.g., `npm audit` or the approved scanner) and fail fast on any High/Critical findings; document results and remediation plan if needed. This MUST run before committing or merging dependency changes. (depends-on: T001)
 - [ ] T002 Create `apps/web/next.config.js` with Preact/compat webpack aliases (`apps/web/next.config.js`)
 - [ ] T003 Create app wrapper `apps/web/pages/_app.jsx` that imports global styles (`apps/web/pages/_app.jsx`)
 - [ ] T004 Create skeleton landing page placeholder `apps/web/pages/index.jsx` (minimal placeholder content) (`apps/web/pages/index.jsx`)
@@ -13,17 +14,17 @@ Phase 1: Setup (project initialization)
 
 Phase 2: Foundational (blocking prerequisites)
 
-- [ ] T006 [P] Add Playwright devDependency, set `test:e2e` npm script in `apps/web/package.json`, and run `npx playwright install` to install browsers (depends-on: T001) (`apps/web/package.json`)
+- [ ] T006 [P] Add Playwright devDependency, set `test:e2e` npm script in `apps/web/package.json`, and run `npx playwright install` to install browsers (depends-on: T001, T001a) (`apps/web/package.json`) — these are the integration tests referenced in the plan.
 - [ ] T007 [P] Add CI workflow to build and serve the site, install Playwright browsers, and run Playwright against `BASE_URL` across Chromium/Firefox/WebKit (headless) (suggested path: `.github/workflows/web.yml`) (depends-on: T006) (`.github/workflows/web.yml`)
 - [ ] T008 [P] Add agent-context update step: run `.specify/scripts/bash/update-agent-context.sh copilot` and commit generated agent instructions to `.github/agents/copilot-instructions.md` (depends-on: T001) (`.github/agents/copilot-instructions.md`)
 
 Phase 3: User Story 1 — Find GitHub account (Priority: P1)
 
-- [ ] T009 [US1] Create failing E2E test `apps/web/tests/e2e/landing.spec.js` (ESM) that asserts the GitHub link exists and has correct attributes (`href`, `target`, `rel`, `aria-label`) (depends-on: T006) (`apps/web/tests/e2e/landing.spec.js`)
+- [ ] T009 [US1] Create failing integration test `apps/web/tests/e2e/landing.spec.js` (ESM) that asserts the GitHub link exists and has correct attributes (`href`, `target`, `rel`, `aria-label`) (depends-on: T006) (`apps/web/tests/e2e/landing.spec.js`)
 - [ ] T010 [US1] Implement landing page content in `apps/web/pages/index.jsx`, add a prominent GitHub button linking to `https://github.com/ArktisZ10` (maps-to: FR-001, FR-002, FR-006) (depends-on: T009) (`apps/web/pages/index.jsx`)
 - [ ] T011 [US1] Ensure the GitHub anchor uses `target="_blank"` and `rel="noopener noreferrer"`, and includes `aria-label="Open GitHub profile for ArktisZ10"` (verify and update `apps/web/pages/index.jsx`) (depends-on: T010) (`apps/web/pages/index.jsx`)
-- [ ] T012 [US1] Run E2E tests and update code until `apps/web/tests/e2e/landing.spec.js` passes (commands: `cd apps/web && npm run test:e2e`) (depends-on: T009,T010) (no file path)
-- [ ] T013 [US1] Add automated no-JavaScript verification `apps/web/tests/e2e/no-javascript.spec.mjs` that loads the page with JavaScript disabled and verifies the anchor works (depends-on: T009) (`apps/web/tests/e2e/no-javascript.spec.mjs`)
+- [ ] T012 [US1] Run integration tests and update code until `apps/web/tests/e2e/landing.spec.js` passes (commands: `cd apps/web && npm run test:e2e`) (depends-on: T009,T010) (no file path)
+- [ ] T013 [US1] Add automated no-JavaScript verification `apps/web/tests/e2e/no-javascript.spec.mjs` that loads the page with JavaScript disabled and verifies the anchor works (depends-on: T009) (`apps/web/tests/e2e/no-javascript.spec.mjs`) — part of the integration test suite.
 
 Phase 4: User Story 2 — Simple shareable page (Priority: P2)
 
@@ -52,17 +53,17 @@ Dependencies (story completion order)
 
 Parallel execution examples
 
-- While `T006` (installing E2E deps) and `T009` (creating failing test) must be sequentially ordered (T006 before T009), the following tasks are parallelizable: `T002`, `T003`, `T004`, `T005` (file creation) — these modify different files and can be done concurrently. `T014` (metadata) and `T016` (styles) can be done by different engineers in parallel after `T010`.
+- While `T006` (installing integration-test deps) and `T009` (creating failing test) must be sequentially ordered (T006 before T009), the following tasks are parallelizable: `T002`, `T003`, `T004`, `T005` (file creation) — these modify different files and can be done concurrently. `T014` (metadata) and `T016` (styles) can be done by different engineers in parallel after `T010`.
 
 Independent test criteria (per user story)
 
-- **US1**: Automated E2E test `apps/web/tests/e2e/landing.spec.js` (T009) must fail before implementation; after T010/T011 the test must pass in the CI matrix (Playwright across Chromium/Firefox/WebKit). No-JS verification `apps/web/tests/e2e/no-javascript.spec.mjs` (T013) must also pass.
+- **US1**: Automated integration test `apps/web/tests/e2e/landing.spec.js` (T009) must fail before implementation; after T010/T011 the test must pass in the CI matrix (Playwright across Chromium/Firefox/WebKit). No-JS verification `apps/web/tests/e2e/no-javascript.spec.mjs` (T013) must also pass.
 - **US2**: Manual verification documented in `specs/.../quickstart.md` (T015) showing the URL loads on another device.
 - **US3**: Accessibility audit `specs/.../accessibility-audit.md` (T017) shows keyboard focusability and accessible name for the GitHub link.
 
 Success Criteria → Task mapping
 
-- SC-001 (Automated E2E pass across browsers) → T009, T012, T007
+ - SC-001 (Automated integration tests pass across browsers) → T009, T012, T007
 - SC-002 (Click/navigation verification) → T009, T012
 - SC-003 (Accessibility) → T011, T017
 - SC-004 (Responsive checks) → T016, T015
