@@ -10,9 +10,11 @@
     "dev": "next dev -p 3000",
     "build": "next build",
     "start": "next start",
-    "test:e2e": "npx playwright test apps/web/tests/e2e"
+    "test:integration": "npx playwright test apps/web/tests/integration",
+    "serve:integration": "http-server out -p 3000"
   },
   "devDependencies": {
-    "playwright": "^1.57.0"
+    "playwright": "^1.57.0",
+    "http-server": "^14.1.1"
   }
 }

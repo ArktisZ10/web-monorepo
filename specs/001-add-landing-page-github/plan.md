@@ -26,7 +26,7 @@ Gate evaluation:
 Tooling & CI matrix (decision)
  - **Integration test runner**: `Playwright` (headless by default). If CI constraints later require a different runner, update `plan.md` with a justification.
  - **Browsers (CI matrix)**: Chromium, Firefox, WebKit (run headless in CI); target Node.js `18` and `20` in runners where applicable.
- - **Test script**: add `test:e2e` npm script to `apps/web/package.json` that runs the integration tests with Playwright.
+ - **Test script**: add `test:integration` npm script to `apps/web/package.json` that runs the integration tests with Playwright.
 
  - **Node runtime**: Target the repository's latest Node LTS in CI and local development. Use the latest LTS in the CI matrix and document the specific version in the repo's `engines` field if desired.
  - **Modules**: Use ESM for app and tests; add `"type": "module"` to `apps/web/package.json` and author sources/tests with `import`/`export` syntax.
@@ -77,9 +77,9 @@ Tasks (ordered):
    - Commit: `chore: scaffold apps/web (failing integration-test placeholder)`
 
 2. Add integration test (fail-first) — simple test that asserts the GitHub link is present and opens target URL
-   - Location: `apps/web/tests/e2e/landing.spec.js`
-   - Test framework: choose lightweight runner (Playwright recommended) — add `devDependencies` and npm script `test:e2e` for integration tests.
-   - Commit: `test(e2e): add failing integration test for landing page`
+   - Location: `apps/web/tests/integration/landing.spec.js`
+   - Test framework: choose lightweight runner (Playwright recommended) — add `devDependencies` and npm script `test:integration` for integration tests.
+   - Commit: `test(integration): add failing integration test for landing page`
 
 3. Implement landing page so test passes
    - Ensure anchor has `href="https://github.com/ArktisZ10"`, `target="_blank"`, `rel="noopener noreferrer"`, and `aria-label` as specified in spec.
@@ -102,7 +102,7 @@ Optional (P2)
 - `apps/web/pages/index.jsx`
 - `apps/web/pages/_app.jsx`
 - `apps/web/styles/global.css`
-`apps/web/tests/e2e/landing.spec.js`
+`apps/web/tests/integration/landing.spec.js`
 
 ## Agent Context Update (Phase 1 step)
 

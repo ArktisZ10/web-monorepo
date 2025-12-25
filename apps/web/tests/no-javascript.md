@@ -10,7 +10,7 @@ Manual check
 4. Verify the GitHub link is visible as a native anchor (`<a href="https://github.com/ArktisZ10">`) and that clicking the link navigates to the external GitHub profile.
 
 Automated Playwright approach (ESM)
-Create `apps/web/tests/e2e/no-javascript.spec.mjs` with the following content:
+Create `apps/web/tests/integration/no-javascript.spec.mjs` with the following content:
 ```mjs
 import { test, expect } from '@playwright/test';
 

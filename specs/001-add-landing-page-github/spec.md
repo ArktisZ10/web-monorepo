@@ -82,12 +82,6 @@ As a user with varying devices or assistive needs, I want the landing page and G
 
 ## Success Criteria *(mandatory)*
 
-### Measurable Outcomes
-
-
-### Measurable Outcomes (revised)
-
-
 ## Measurable Outcomes *(mandatory)*
 
 The following measurable outcomes define acceptance and include guidance about stability and automation.
@@ -98,7 +92,6 @@ The following measurable outcomes define acceptance and include guidance about s
 - **SC-004 (Responsive checks)**: The page must render and display the GitHub button within the first viewport without scrolling for mobile (375×812) and tablet/desktop sizes (768×1024, 1024×768) in the CI visual/manual checks.
 
 Note: The CI matrix referenced above is defined in `plan.md` and `.github/workflows/web.yml` (Playwright across Chromium, Firefox, WebKit; Node LTS). The term "integration tests" is used in this spec to refer to the previously-used "E2E" tests to avoid terminology drift.
-Note: The CI matrix referenced above is defined in `plan.md` and `.github/workflows/web.yml` (Playwright across Chromium, Firefox, WebKit; Node LTS). Manual test counts cited earlier have been retired in favor of CI-driven automated criteria.
 
 ## Assumptions
 
