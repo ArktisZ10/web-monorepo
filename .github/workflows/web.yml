@@ -30,6 +30,11 @@ jobs:
           cd apps/web
           npm ci
 
+      - name: Install Playwright browsers
+        run: |
+          cd apps/web
+          npx playwright install --with-deps
+
       - name: Run dependency vulnerability scan
         run: |
           cd apps/web
