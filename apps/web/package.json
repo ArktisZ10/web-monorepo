@@ -17,10 +17,13 @@
     "build": "next build",
     "start": "next start",
     "test:integration": "npx playwright test apps/web/tests/integration",
-    "serve:integration": "http-server out -p 3000"
+    "serve:integration": "http-server out -p 3000",
+    "ci:integration-tests": "npm run build && concurrently --kill-others --success first \"npm run serve:integration\" \"npx wait-on http://localhost:3000 && npm run test:integration\""
   },
   "devDependencies": {
     "http-server": "^14.1.1",
-    "playwright": "^1.57.0"
+    "playwright": "^1.57.0",
+    "concurrently": "^8.2.0",
+    "wait-on": "^7.0.1"
   }
 }

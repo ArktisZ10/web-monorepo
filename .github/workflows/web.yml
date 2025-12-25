@@ -36,38 +36,12 @@ jobs:
           # Fail the job if any High or Critical vulnerabilities are present
           npm audit --audit-level=high
 
-      - name: Build app for production
-        run: |
-          cd apps/web
-          npm run build
-
-      - name: Serve production build
-        run: |
-          cd apps/web
-          # Export the already-built site to static files (out/)
-          npx next export -o out
-          # Serve the exported static site on port 3000 using the project-local http-server
-          npm run serve:integration &
-          # wait for server to be ready
-          for i in {1..60}; do
-            if curl -sSf "http://localhost:3000" >/dev/null; then
-              echo "server up"; break
-            fi
-            sleep 1
-          done
-
-      - name: Install Playwright browsers
-        run: |
-          cd apps/web
-          npx playwright install --with-deps
-
-      - name: Run Playwright integration tests against served site
+      - name: Run CI integration script (build, serve, wait, install browsers, run tests)
         env:
           BASE_URL: http://localhost:3000
         run: |
           cd apps/web
-          echo "Running Playwright integration tests against $BASE_URL"
-          npm run test:integration --silent
+          npm run ci:integration-tests --silent
 
       - name: Upload Playwright integration report
         if: always()
