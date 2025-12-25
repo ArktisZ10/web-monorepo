@@ -32,12 +32,14 @@ Tooling & CI matrix (decision)
  - **Modules**: Use ESM for app and tests; add `"type": "module"` to `apps/web/package.json` and author sources/tests with `import`/`export` syntax.
  - **Terminology**: This plan uses the term `integration tests` (rather than `E2E`) and `no-JavaScript` when referring to running pages with JavaScript disabled. Use these terms consistently in related artifacts (`spec.md`, `tasks.md`).
  
-Vercel Hosting
- - **Target**: Deploy the `apps/web` Next.js app to Vercel for preview and production hosting. Vercel preview URLs are the recommended targets for integration-test validation because they run the production build.
-- **Setup steps**: Connect the GitHub repository to Vercel, enable Preview Deployments for pull requests, and configure environment variables/secrets if needed.
- - **CI strategy**: Prefer running integration tests against the Vercel preview URL for PRs. Use CI to either (a) run Playwright against a preview URL (provided by Vercel integration or returned by a Vercel action), or (b) build and serve the site in CI and run Playwright against the served URL. Integration tests read `BASE_URL` to target the deployed preview or local server.
-- **Secrets**: If using a Vercel action in CI, add `VERCEL_TOKEN`, `VERCEL_ORG_ID`, and `VERCEL_PROJECT_ID` to repository secrets. Alternatively rely on Vercel's native GitHub integration and query the Vercel API for the preview URL in CI.
-- **Recommendation**: Use preview deployments as the canonical verification target for PRs so tests run against the real build. Keep local dev server for fast local iteration.
+GitHub Pages Hosting
+- **Target**: Deploy the `apps/web` Next.js app as a static site to GitHub Pages. For a simple single-page landing site this is sufficient and avoids early coupling to Vercel. Because the site is static, we'll use `next export` (or another static export strategy) to produce an `out/` directory suitable for Pages.
+- **Setup steps**: Ensure the Next.js app uses only static features (no server-side rendering or API routes) so `next export` is supported. Configure a GitHub Pages deployment action (e.g. `peaceiris/actions-gh-pages`) to publish the `out/` directory from a branch (or use `gh-pages` deployment). Document the deployment configuration in the repository's docs.
+- **CI strategy**: GitHub Pages does not provide per-PR preview URLs like Vercel by default. Prefer one of the following CI approaches for PR verification:
+   - (Preferred) Build and serve the production export in the CI job, run Playwright integration tests against the served `BASE_URL` (this matches the existing `.github/workflows/web.yml` approach). This keeps tests deterministic and under CI control.
+   - (Optional) Deploy a preview to a branch-specific Pages site (or to a preview subdomain) using an action, then run integration tests against that preview URL. This is more involved and requires managing preview deployments and cleanup.
+- **Secrets**: If using a deployment action that needs authentication, add `ACTIONS_DEPLOY_KEY` or `GITHUB_TOKEN` with the minimal permissions required. Document required secrets and branch protection rules.
+- **Recommendation**: Use GitHub Pages for now for simplicity. Run integration tests against the CI-served production export for PR validation. Revisit Vercel later if you want automatic preview URLs, built-in CDN, or serverless features.
 
 Ordering note: The project scaffold (`apps/web/package.json`) must be created before installing integration-test devDependencies or committing the failing test. Tasks that add test deps or create failing tests will explicitly depend on the scaffold task.
 

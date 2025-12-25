@@ -41,7 +41,7 @@ Final Phase: Polish & Cross-cutting Concerns
 - [ ] T018 [P] Add `apps/web/README.md` with quickstart (how to run, test:e2e) and link to `spec.md` (`apps/web/README.md`)
 - [ ] T019 [P][INFRA] Add dependency/security scan step to CI (e.g., `npm audit` or `npm ci && npm audit --audit-level=moderate`) and document in `.github/workflows/web.yml` (depends-on: T007) (`.github/workflows/web.yml`)
 - [ ] T020 [INFRA] Commit all changes on branch `001-add-landing-page-github` and open a Pull Request to `main` (process task — `git push` + GitHub PR) (no file path)
-- [ ] T021 [P] (Optional) Configure Vercel hosting: connect repository, enable Preview Deployments for PRs, and add required project settings (`vercel` dashboard) (optional, depends-on: T010) (no file path)
+ - [ ] T021 [P] (Optional) Configure GitHub Pages hosting: ensure the Next.js app is compatible with `next export` (static-only features), add a Pages deployment action (e.g. `peaceiris/actions-gh-pages` or `gh-pages`) to publish the `out/` directory, and document the Pages configuration and any required secrets (optional, depends-on: T010) (no file path)
 
 
 Dependencies (story completion order)
